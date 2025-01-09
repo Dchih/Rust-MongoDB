@@ -2,14 +2,14 @@
 GET http://localhost:8080/book HTTP/1.1
 
 ### create_book_handler
-POST http://localhost:8080/book HTTP/1.1
+POST http://localhost:8080/book
 Content-Type: application/json
 
 {
-    "name": "book_name",
-    "author": "F. Scott Fitzgerald",
-    "num_pages": 1925,
-    "tags": ["tag1", "tag2", "tag3"]
+    "name": "Dchih",
+    "author": "Dchih",
+    "num_pages": 1,
+    "tags": ["test"]
 }
 
 ### edit_book_handler

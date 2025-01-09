@@ -16,6 +16,7 @@ const AUTHOR: &str = "author";
 const NUM_PAGES: &str = "num_pages";
 const ADDED_AT: &str = "added_at";
 const TAGS: &str = "tags";
+const APP_NAME: &str = "booky_app";
 
 #[derive(Debug, Clone)]
 pub struct DB {
@@ -25,7 +26,7 @@ pub struct DB {
 impl DB {
     pub async fn init() -> Result<Self> {
         let mut client_options = ClientOptions::parse("mongodb://127.0.0.1:27017").await?;
-        client_options.app_name = Some("booky".to_string());
+        client_options.app_name = Some(APP_NAME.to_string());
 
         Ok(Self {
             client: Client::with_options(client_options)?,

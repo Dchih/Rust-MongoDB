@@ -31,3 +31,7 @@ pub async fn delete_book_handler(id: String, db: DB) -> WebResult<impl Reply> {
     db.delete_book(&id).await.map_err(|e| reject::custom(e))?;
     Ok(StatusCode::OK)
 }
+
+pub async fn get_book_handler(id: String, db: DB) -> WebResult<impl Reply> {
+    let books = db.fetch_books()
+}

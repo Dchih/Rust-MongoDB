@@ -46,10 +46,27 @@ async fn main() -> Result<()> {
             .and_then(handler::delete_book_handler))
         .or(book
             .and(warp::get())
+            //.and(warp::path::param())
             .and(with_db(db.clone()))
-            .and_then(handler::books_list_handler));
+            .and_then(handler::books_list_handler))
+        .or(book
+            .and(warp::get())
+            .and(warp::path::param())
+            .and(with_db(db.clone()))
+            .and_then( handler::get_book_handler));
 
-    let routes = book_routes.recover(error::handler_rejection);
+    let hello_route = warp::path("hello")
+        .and(warp::get())
+        .and(warp::path::param())
+        .and(warp::header("user-agent"))
+        .map(|param: String, agent: String| {
+            format!("Hello {}, whose agent is {}", param, agent)
+        });
+
+    let routes = book_routes
+        .or(hello_route)
+        .recover(error::handler_rejection);
+
     println!("Started on port 8080");
     warp::serve(routes).run(([0, 0, 0, 0], 8080)).await;
 
